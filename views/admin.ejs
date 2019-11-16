@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Build Test</title>
+</head>
+<body>
+    <%if(status==='log'){%>
+        <form action="/login" method="post">
+            <input type="text" name="username"><br><br>
+            <input type="password" name="password" id=""><br><br>
+            <input type="submit" value="Login" id="">
+        </form>
+    <%}else if(status==='loggedin'){%>
+    <h1>Your Test Links</h1>
+    <%for(var i=0;i<links.length;i++){%>
+        <li><a href="<%= links[i].testlink %>"><%= links[i].testlink %></a>
+        <form action="/showattempts" method="post">
+            <input type="text" hidden name="testlink" id="" value="<%=links[i].testlink%>">
+            <input type="text" hidden name="username" id="" value="<%=username%>">
+            <input type="submit" name="" id="" value="Show attempts">
+        </form>
+        </li><br><br>    
+    <%}%>
+    <br>
+    <h3>Want to create new QUIZ?</h3>
+    
+    <form action="/createquiz" method="post">
+        <input type="text" name="testname" id="">
+        
+        <input type="text" name="username" hidden id="" value="<%=username%>">
+        <input type="submit" value="Create Your own Question" name="" id="">
+    </form>
+    <form action="/createquiz2" method="post">
+        <input type="text" name="testname" id="">
+        <input type="text" name="username" hidden id="" value="<%=username%>">
+        <input type="submit" value="Create using given questions" name="" id="">
+    </form>
+    <%}else if(status==='quizcreation'){%>
+    <br>
+        <form action="/addques" method="post">
+        Q.<input type="text" name="question" id=""><br><br>
+        option1<input type="text" name="option1" ><br><br>
+        option2<input type="text" name="option2" ><br><br>
+        option3<input type="text" name="option3" ><br><br>
+        option4<input type="text" name="option4" ><br><br>
+        Right Answer<input type="text" name="rightanswer" placeholder="Enter Correct answer"><br><br>
+        <input type="text" name="testlink" hidden value="<%=testlink%>" id=""><br><br>
+        <input type="submit" value="Add to quiz">
+        </form>
+        <form action="/sharequiz" method="post">
+            <input type="text" hidden value="<%=testlink%>" name="link" id="">
+            <input type="text" hidden value="<%=username%>" name="username" id="">
+            <input type="submit" value="Complete and Share the quiz!" name="" id="">
+        </form>
+        <%}else if(status==='quizcreation2'){%>
+            <br>
+            <%for(var j=0;j<questions.length;j++){%>
+                <div>
+                <form action="/addques2" method="post">
+                Q.<input type="text" value="<%= questions[j].question %>" name="question" id=""><br><br>
+                option1<input type="text" value="<%= questions[j].option1 %>"  name="option1" ><br><br>
+                option2<input type="text" value="<%= questions[j].option2 %>"  name="option2" ><br><br>
+                option3<input type="text" value="<%= questions[j].option3 %>"  name="option3" ><br><br>
+                option4<input type="text" value="<%= questions[j].option4 %>"  name="option4" ><br><br>
+                Right Answer<input type="text" value="<%= questions[j].rightanswer %>"  name="rightanswer" placeholder="Enter Correct answer"><br><br>
+                <input type="text" name="testlink" hidden value="<%=testlink%>" id=""><br><br>
+                <input type="submit" value="Add to quiz">
+                </form>
+            </div>
+            <hr>
+            <%}%>
+            <form action="/sharequiz" method="post">
+                <input type="text" hidden value="<%=testlink%>" name="link" id="">
+                <input type="text" hidden value="<%=username%>" name="username" id="">
+                <input type="submit" value="Complete and Share the quiz!" name="" id="">
+            </form>
+
+            <%}else if(status==='attempts'){%>
+                <%for(var i=0;i<attempts.length;i++){%>
+                    <li><%=attempts[i].username%> <%=attempts[i].score%></li>
+                <%}%>
+            <%}else{%>
+        <h1>Thank You <%=username%> Your Quiz link is : <%=link%></h1>    
+    <%}%>
+</body>
+</html>

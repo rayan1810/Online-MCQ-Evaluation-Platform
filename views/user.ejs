@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Try test</title>
+</head>
+<body>
+    <%if(status==='test' && questions.length>questionNo){%>
+        <form action="/submit" method="post">
+    <%if(username==='unknown'){%>
+        <input type="text" name="username" id="" placeholder="Enter Your UserID"><br>
+        <%}else{%>
+            <input type="text" hidden name="username" id="" value="<%=username%>"><br>
+            <%}%>
+    <h1>Score : <%=score%></h1>
+    <br>
+    <h3><%=msg%></h3>
+    <br>
+        
+            <input type="text" hidden value="<%=testlink%>" name="testlink">
+        <p>Q.<%=questions[questionNo].question%></p>
+        <input type="number" hidden name="questionNo" value="<%=questionNo%>" id="">
+        <input type="number" hidden name="score" value="<%=score%>" id="">
+        <input type="text" hidden name="question" value="<%=questions[questionNo].question%>" id="">
+        <input type="radio" name="rightanswer" value="<%=questions[questionNo].option1%>"><%=questions[questionNo].option1%>
+        <input type="radio" name="rightanswer" value="<%=questions[questionNo].option2%>"><%=questions[questionNo].option2%>
+        <input type="radio" name="rightanswer" value="<%=questions[questionNo].option3%>"><%=questions[questionNo].option3%>
+        <input type="radio" name="rightanswer" value="<%=questions[questionNo].option4%>"><%=questions[questionNo].option4%>
+        <input type="submit" value="Check Your Answer">
+
+    </form>
+    <%}else{%>
+        <h1>Your final score is : <%=score%></h1>    
+    <%}%>
+</body>
+</html>
